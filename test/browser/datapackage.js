@@ -174,7 +174,7 @@ describe('browser: Datapackage', function () {
 
   describe('#_getBasePath', () => {
     it('returns the URL if the datapackage descriptor is URL', async() => {
-      const remoteURL = 'http://bit.do/datapackage.json'
+      const remoteURL = 'https://raw.githubusercontent.com/frictionlessdata/datapackage-js/master/data/dp1/datapackage.json'
       assert(Datapackage._getBasePath(remoteURL) === remoteURL)
     })
 
