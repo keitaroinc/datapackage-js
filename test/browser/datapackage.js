@@ -8,12 +8,15 @@ import jsdomSetup from './jsdomSetup'
 const assert = chai.assert
 
 let Datapackage,
-  dp1
+  dp1,
+  dp2
+
 describe('browser: Datapackage', function () {
 
   beforeEach(() => {
     Datapackage = jsdomSetup('Datapackage')
     dp1 = JSON.parse(fs.readFileSync('./data/dp1/datapackage.json', 'utf8'))
+    dp2 = JSON.parse(fs.readFileSync('./data/dp2-tabular/datapackage.json', 'utf8'))
   })
 
   describe('#new Datapackage', () => {
@@ -90,6 +93,14 @@ describe('browser: Datapackage', function () {
            assert(_.isArray(err), 'Promise not rejected with Array')
          }
        })
+
+    it('changes the datapackage attribute when resources are the same', async () => {
+      const datapackage = await new Datapackage(dp2)
+      datapackage.update({ resources: dp2.resources,
+                           name: 'New descriptor name' })
+
+      assert(datapackage.descriptor.name === 'New descriptor name')
+    })
 
     it(
       'silently adds the errors if the descriptor is invalid and if raiseInvalid is false',
